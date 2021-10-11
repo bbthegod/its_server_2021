@@ -9,8 +9,10 @@ export async function list(req, res) {
   return res.json(plays);
 }
 
-export function remove(req, res) {
-  const { play } = req;
+export async function remove(req, res) {
+  const { id } = req.params;
+  const play = await Play.findOne({ userID: id });
+  if (!play) return res.status(httpStatus.NOT_FOUND).end();
   play.remove();
   return res.json(play);
 }
