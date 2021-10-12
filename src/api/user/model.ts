@@ -22,7 +22,7 @@ const UserSchema = new Schema<User, UserModel>(
 );
 
 UserSchema.pre('save', function (next) {
-  if (this.role === 'user') return next();
+  if (this.role === 'admin') return next();
   const rounds = 10;
   if (!this.isModified('password')) return next();
   return bcrypt.hash(this.password, rounds, (err, hash) => {
@@ -43,6 +43,7 @@ UserSchema.statics.List = async function ({ skip = 0, limit = 500, sort = { crea
 };
 
 UserSchema.statics.Login = async function (user, password) {
+  console.log(await bcrypt.compare(password, user.password));
   return await bcrypt.compare(password, user.password);
 };
 

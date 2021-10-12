@@ -8,7 +8,8 @@ export async function login(req, res) {
   if (!user) return errorResponse(res);
   if (user.isOnline) return errorResponse(res);
   if (user.role === 'admin') {
-    if (!User.Login(user, password)) return errorResponse(res);
+    let loginResult = await User.Login(user, password);
+    if (!loginResult) return errorResponse(res);
   } else {
     if (user.password !== password) return errorResponse(res);
   }

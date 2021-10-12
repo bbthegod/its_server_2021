@@ -1,4 +1,6 @@
 import httpStatus from 'http-status';
+import { EndPlay } from '../play/controller';
+import Play from '../play/model';
 import User from './model';
 
 export async function load(req, res, next, id) {
@@ -38,8 +40,10 @@ export async function list(req, res) {
   return res.json(users);
 }
 
-export function remove(req, res) {
+export async function remove(req, res) {
   const { user } = req;
+  const play = await Play.findOne({ userID: user.id });
+  if (play) play.remove();
   user.remove();
   return res.json(user);
 }
