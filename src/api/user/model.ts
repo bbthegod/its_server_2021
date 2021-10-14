@@ -22,7 +22,7 @@ const UserSchema = new Schema<User, UserModel>(
 );
 
 UserSchema.pre('save', function (next) {
-  if (this.role === 'admin') return next();
+  if (this.role !== 'admin') return next();
   const rounds = 10;
   if (!this.isModified('password')) return next();
   return bcrypt.hash(this.password, rounds, (err, hash) => {

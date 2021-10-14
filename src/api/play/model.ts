@@ -15,7 +15,7 @@ const playSchema = new Schema<Play, PlayModel>(
         answer: Number,
       },
     ],
-    timeOut: { type: Date, default: new Date(Date.now() + 25 * 60000) },
+    timeOut: { type: Date, default: new Date(Date.now() + 20 * 60000) },
     totalScore: { type: Number, default: 0 },
     interviewScore: { type: Number, default: 0 },
     interviewer: { type: String },

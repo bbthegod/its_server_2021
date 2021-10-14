@@ -66,7 +66,7 @@ export async function GetPlay(req, res) {
       const newPlay = new Play({
         userID: user._id,
         questions: await Question.random(),
-        timeOut: new Date(Date.now() + 25 * 60000),
+        timeOut: new Date(Date.now() + 20 * 60000),
       });
       return newPlay.save().then(async result => {
         const r = await result.populate('questions.questionId', 'options content');
